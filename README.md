@@ -102,14 +102,42 @@ The repository structure should now be understood according to the actual conten
 
 ```text
 EpiClaw/
-├── README.md
-└── skills/
-    ├── early-warning-system/
-    ├── outbreak-investigator/
-    ├── disease-modeler/
-    ├── variant-surveillance/
-    ├── epi-data-fetcher/
-    └── ...
+├── README.md                      # Project overview for Epiclaw (Infectious Disease LLM Agent)
+├── requirements.txt               # Global shared dependencies (e.g., openclaw, pybioos)
+├── configs/                       # Core routing and assembly configurations
+│   ├── epiclaw_profile.yaml       # Configuration defining which Plugins and SKILLs to mount
+│   └── acp_registry.json          # ACP service discovery registry for sub-agents
+│
+├── skills/                        # [Lightweight: Prompts and local tool definitions]
+│   ├── bioos-navigen/             # Expanded Example 1: Bio-OS operation expert (Skill Group mode)
+│   │   ├── workspace-manager/     # Sub-skill: Focuses on RO-Crate and workspace management
+│   │   │   ├── SKILL.md           # Skill settings and System Prompt with YAML Front Matter
+│   │   │   └── skill_tools/       # Extremely lightweight scripts strictly for this skill
+│   │   └── workflow-runner/       # Sub-skill: Focuses on WES workflow submission (Collapsed)
+│   │
+│   └── epi-outbreak-response/     # Other independent skills: Outbreak emergency response protocols (Collapsed)
+│
+├── plugins/                       # [Medium-weight: Native Python plugins for OpenClaw]
+│   ├── plugin-cdc-fetcher/        # Expanded Example 2: CDC direct reporting data fetcher plugin
+│   │   ├── __init__.py            # Plugin registration entry point
+│   │   ├── main.py                # Core logic deeply hooked into the OpenClaw lifecycle
+│   │   └── requirements.txt       # Third-party dependencies exclusive to this plugin (Isolated env)
+│   │
+│   └── plugin-bioos-auth/         # Other plugins: Handles cross-domain Visa authentication (Collapsed)
+│
+├── acp_agents/                    # [Heavyweight: Independent microservices based on the ACP protocol]
+│   ├── viral-mutation-agent/      # Expanded Example 3: Dedicated agent for viral mutation profiling
+│   │   ├── Dockerfile             # Independent containerized build file
+│   │   ├── server.py              # Main server program exposing the ACP protocol interfaces
+│   │   ├── model_weights/         # (Optional) Private vertical small model weights for this sub-agent
+│   │   └── requirements.txt       # Dedicated bioinformatics Python library dependencies
+│   │
+│   ├── literature-agent/          # Other sub-agents: Large-scale literature mining (Collapsed)
+│   └── docker-compose.yml         # [Core] One-click orchestration to spin up all local/cloud sub-agents
+│
+└── tools/                         # [Global Shared: Common scripts and infrastructure tools]
+    ├── build_epiclaw.sh           # Script for one-click initialization or building of the project
+    └── shared_validators/         # Validation utility classes reused across plugins and agents
 ```
 
 The key points are:
