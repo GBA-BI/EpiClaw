@@ -1,0 +1,21 @@
+case_id,onset_date,age,sex,potato_salad,chicken,water,cake,ill,outcome
+C001,2025-06-15 08:30,34,F,Yes,Yes,Yes,No,Yes,recovered
+C002,2025-06-15 12:00,45,M,Yes,No,Yes,Yes,Yes,recovered
+C003,2025-06-15 14:00,28,F,Yes,Yes,Yes,No,Yes,hospitalized
+C004,2025-06-15 16:30,52,M,No,Yes,Yes,No,No,well
+C005,2025-06-16 02:00,67,F,Yes,Yes,Yes,Yes,Yes,recovered
+C006,2025-06-16 06:00,23,M,Yes,No,Yes,No,Yes,recovered
+C007,2025-06-16 09:00,41,F,No,Yes,Yes,Yes,No,well
+C008,2025-06-16 11:00,55,M,Yes,Yes,Yes,No,Yes,recovered
+C009,2025-06-16 15:00,38,F,Yes,No,Yes,No,Yes,recovered
+C010,2025-06-16 18:00,62,M,Yes,Yes,Yes,Yes,Yes,hospitalized
+C011,2025-06-17 01:00,19,F,Yes,No,Yes,No,Yes,recovered
+C012,2025-06-17 04:00,48,M,No,Yes,Yes,No,No,well
+C013,2025-06-17 08:00,31,F,Yes,Yes,Yes,No,Yes,recovered
+C014,2025-06-17 12:00,56,M,Yes,No,Yes,Yes,Yes,recovered
+C015,2025-06-17 16:00,43,F,No,No,Yes,No,No,well
+C016,2025-06-17 20:00,72,M,Yes,Yes,Yes,No,Yes,hospitalized
+C017,2025-06-18 03:00,26,F,Yes,No,Yes,No,Yes,recovered
+C018,2025-06-18 07:00,39,M,No,Yes,Yes,Yes,No,well
+C019,2025-06-18 10:00,50,F,Yes,Yes,Yes,No,Yes,recovered
+C020,2025-06-18 14:00,33,M,Yes,No,Yes,No,Yes,recovered
