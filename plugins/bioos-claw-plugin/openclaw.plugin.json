@@ -1,0 +1,30 @@
+{
+  "id": "bioos-claw-plugin",
+  "name": "BioOS Plugin",
+  "description": "OpenClaw plugin that exposes Bio-OS platform tools via pybioos CLI.",
+  "version": "0.1.0",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "bioosCommand": {
+        "type": "string",
+        "description": "Command or absolute executable path used to launch the Bio-OS CLI. Defaults to 'bioos' when omitted."
+      },
+      "pybioosBin": {
+        "type": "string",
+        "description": "Legacy fallback: absolute path to a directory that contains installed Bio-OS CLI binaries."
+      }
+    }
+  },
+  "uiHints": {
+    "bioosCommand": {
+      "label": "bioos command",
+      "placeholder": "bioos or /absolute/path/to/bioos"
+    },
+    "pybioosBin": {
+      "label": "legacy bin directory",
+      "placeholder": "/Users/you/PycharmProjects/pybioos/.venv/bin"
+    }
+  }
+}
