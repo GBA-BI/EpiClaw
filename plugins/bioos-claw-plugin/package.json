@@ -1,0 +1,22 @@
+{
+  "name": "bioos-claw-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OpenClaw plugin for Bio-OS tools backed by pybioos CLI.",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "openclaw": {
+    "extensions": [
+      "./src/index.js"
+    ]
+  },
+  "scripts": {
+    "check": "node --check src/index.js && node --check src/lib/cli.js && node --check src/tools/list_bioos_workspaces.js && node --check src/tools/get_workspace_profile.js"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.34.41"
+  }
+}
