@@ -96,6 +96,24 @@ The currently imported skills are still primarily standalone OpenClaw skills. In
 
 That makes the current repository useful immediately as a local skill library, while BioOS-facing integration can continue to be layered on top later.
 
+## Use `bioos-navigen` skills in Cursor
+
+If you are using Cursor Agent, you can use the `bioos-navigen` skill set directly from this repository.
+
+1. Make sure your workspace root is this repository and the skill files are available under `skills/bioos-navigen/`.
+2. Keep each sub-skill self-contained with its own `SKILL.md` (for example, `bioos_data_fetcher`, `bioos_platform_operator`, `bioos_workspace_parser`).
+3. In your Cursor prompt, clearly describe your BioOS goal (for example: "download SRR data to Bio-OS workspace" or "submit a WDL workflow and monitor status").
+4. Let the Agent follow the matching `SKILL.md` instructions and call the related tools for execution.
+
+Recommended usage pattern:
+
+- use `bioos_workspace_parser` first to understand current workspace state
+- use `bioos_data_fetcher` when you need to ingest SRA/GEO data
+- use `bioos_wdl_scripter` + `bioos_pipeline_developer` when building a new workflow
+- use `bioos_platform_operator` to submit and monitor workflow runs
+
+This combination makes Cursor a practical front-end for orchestrating BioOS operations with repeatable, skill-driven steps.
+
 ## Repository structure
 
 The repository structure should now be understood according to the actual content in this codebase rather than the earlier illustrative placeholder layout.
