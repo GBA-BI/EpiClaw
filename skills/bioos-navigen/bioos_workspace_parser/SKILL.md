@@ -5,12 +5,16 @@ description: Retrieve and summarize the full profile of a Bio-OS workspace (incl
 
 # Bio-OS Workspace Parser
 
+## 0. Runtime (OpenClaw vs Cursor)
+
+`get_workspace_profile` 为插件工具名。在 **Cursor** 中用：`bioos workspace profile --workspace-name … --output json`（可选参数见 pybioos 帮助与 [`CURSOR_RUNTIME.md`](../CURSOR_RUNTIME.md)）。
+
 ## 1. Operating Principle
 This procedure defines how to extract and summarize the overall profile of a specified Bio-OS workspace into a clean, human-readable structured manifest.
 
 ## 2. Operational Standards
-1. **Target Identification**: Ensure the target workspace name is known. 
-2. **Metadata Retrieval**: Use the `get_workspace_profile` tool to directly fetch a JSON structure containing the workspace's comprehensive metadata. 
+1. **Target Identification**: Ensure the target workspace name is known.
+2. **Metadata Retrieval**: Use **`get_workspace_profile`** (plugin) **or** `bioos workspace profile … --output json` (Cursor terminal) to fetch a JSON structure containing the workspace's comprehensive metadata.
 3. **Summary Generation**: Parse the returned JSON payload to identify key elements such as:
    - **Workflows**: Available analysis pipelines.
    - **Datasets**: Data structures and associated files.

@@ -5,6 +5,10 @@ description: Outline and draft a scientific manuscript based on analysis results
 
 # Bio-OS Workspace2Paper
 
+## 0. Runtime (OpenClaw vs Cursor)
+
+`list_files_from_workspace` / `download_files_from_workspace` 仅在 OpenClaw 插件中存在。在 **Cursor** 中用终端执行 `bioos file list` / `bioos file download`，见 [`CURSOR_RUNTIME.md`](../CURSOR_RUNTIME.md)。
+
 ## 1. Operating Principle
 This procedure defines how to outline and draft a scientific manuscript describing computational workflows executed on Bio-OS workspaces.
 
@@ -13,11 +17,11 @@ This procedure defines how to outline and draft a scientific manuscript describi
 ### 【Stage 1】Prerequisite Setup
 To write a paper, workspace data must first be extracted.
 1. **Metadata Extraction**: Explicitly declare that the **`bioos_workspace_parser`** skill is required to process the target workspace name. This will load the parser instructions into context. Follow those instructions to obtain a clean, structured manifest of the Workflows, Datasets, and Run Histories.
-2. **Context Enrichment (File Fetching)**: 
-   * After parsing the workspace layout, you must use the registered OpenClaw plugin tool `list_files_from_workspace` to retrieve the file hierarchy within the workspace's bounded bucket.
+2. **Context Enrichment (File Fetching)**:
+   * After parsing the workspace layout, you must use **`list_files_from_workspace`** (plugin) **or** `bioos file list --workspace-name … --output json` (Cursor terminal; see **Section 0**) to retrieve the file hierarchy within the workspace's bounded bucket.
    * Review the returned list and compile a target list of **text-based context files** that you think will help you understand the analysis performed in the workspace. You MUST target summaries (e.g., `__dashboard__.md`), logs, config files, or small CSV reports.
    * **CRITICAL CONSTRAINT**: Do NOT target large binary omics files (e.g., `.bam`, `.fastq.gz`, `.vcf.gz`, `.h5ad`). Do NOT target exceptionally large files.
-   * Use the registered OpenClaw plugin tool `download_files_from_workspace` to pull your selected target list from the cloud directly into the local agent environment. Read these downloaded files to drastically improve your comprehension of the analysis performed in the workspace.
+   * Use **`download_files_from_workspace`** (plugin) **or** `bioos file download … --output json` (Cursor terminal) to pull your selected target list from the cloud directly into the local agent environment. Read these downloaded files to drastically improve your comprehension of the analysis performed in the workspace.
 
 ### 【Stage 2】Structure and Outline Generation
 1. **Propose Structure**: Offer a standard format (Abstract, Intro, Methods, Results, Discussion).

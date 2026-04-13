@@ -5,6 +5,10 @@ description: Interactively design and assemble complete, deployable analytical p
 
 # Bio-OS Pipeline Developer
 
+## 0. Runtime (Cursor)
+
+本 skill 链式依赖 `bioos_docker_builder`、`bioos_wdl_scripter`、`bioos_platform_operator`。在 **Cursor** 中这些步骤依赖终端 `bioos` CLI，而不是 OpenClaw 插件；命令总表见 [`CURSOR_RUNTIME.md`](../CURSOR_RUNTIME.md)。
+
 ## 1. Operating Principle
 This procedure outlines how to translate high-level analysis requirements into a fully functional, deployable analytical pipeline. Creating a pipeline is a multi-step orchestration process that involves designing the runtime environment and the workflow logic.
 

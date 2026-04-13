@@ -5,6 +5,10 @@ description: Construct, diagnose, and compile linux/amd64 Docker images that run
 
 # Bio-OS Docker Builder
 
+## 0. Runtime (OpenClaw vs Cursor)
+
+`build_docker_image` / `check_build_status` 为插件工具名。在 **Cursor** 中等价为终端：`bioos docker build … --output json` 与 `bioos docker status --task-id … --output json`。详见 [`CURSOR_RUNTIME.md`](../CURSOR_RUNTIME.md)。
+
 ## 1. Operating Principle
 This skill defines the procedures for constructing rock-solid, Bio-OS-compatible (`linux/amd64`) Docker containers to resolve Conda, Pip, and Apt dependencies for bioinformatics pipelines or IES applications.
 
@@ -46,7 +50,7 @@ You must strictly follow these rules when generating Dockerfile content.
     - **GOOD**: `RUN make && make install` OR `RUN make && cp binary_name /usr/local/bin/` OR `ENV PATH="/path/to/build/bin:${PATH}"`
 
 ### Step 2: Submit the Build
-Use the `build_docker_image` tool to submit the Dockerfile to the remote Bio-OS build server.
+Use **`build_docker_image`** (plugin) **or** the equivalent `bioos docker build … --output json` command (**Section 0**) to submit the Dockerfile to the remote Bio-OS build server.
 *   **Type 1 (Direct)**: If your Dockerfile is self-contained (no `COPY` instructions), just pass the absolute path of the `Dockerfile`.
 *   **Type 2 (ZIP Archive)**: If your Dockerfile needs to `COPY` local scripts or assets:
     1. Create a staging directory.
@@ -56,10 +60,10 @@ Use the `build_docker_image` tool to submit the Dockerfile to the remote Bio-OS 
 
 ### Step 3: Monitor & Retry (The 3-Strike Loop)
 Because image building takes time and source compilation is error-prone, you must monitor the status.
-1. **Poll**: Periodically call `check_build_status` using the Task ID returned from Step 2.
+1. **Poll**: Periodically call **`check_build_status`** (plugin) **or** `bioos docker status --task-id … --output json` using the Task ID returned from Step 2.
 2. **Success**: If the status is `Success`, retrieve the `image_url` and proceed to Step 4.
 3. **Failure (Strike 1 & 2)**: If a build fails, read the build logs. Attempt to diagnose and fix the compilation environment, update the local Dockerfile, and submit a new build (return to Step 2).
 4. **Failure (Strike 3)**: After 3 total failures of a build for the same environment, you MUST STOP. Consult the user to ask how they want to proceed (e.g., try another method, find a different base image, or abandon the build).
 
 ### Step 4: Final Output
-Once `check_build_status` returns `Success`, actively present the final built image URL (e.g., `registry-vpc.miracle...:tag`) to the user or use it to continue the Orchestrator's workflow.
+Once the build status returns `Success`, actively present the final built image URL (e.g., `registry-vpc.miracle...:tag`) to the user or use it to continue the Orchestrator's workflow.

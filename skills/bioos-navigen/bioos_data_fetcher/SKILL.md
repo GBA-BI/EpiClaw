@@ -5,8 +5,12 @@ description: Download biological datasets (SRA for SRR IDs, GEO for GSE IDs) dir
 
 # Bio-OS Data Fetcher
 
+## 0. Runtime (Cursor)
+
+实际下载由 **`bioos_platform_operator`** 在 Bio-OS 上执行 WDL。在 Cursor 中该 skill 依赖终端里的 `bioos` CLI，而不是 OpenClaw 插件；命令对照见 [`CURSOR_RUNTIME.md`](../CURSOR_RUNTIME.md)。
+
 ## 1. Operating Principle
-This procedure outlines how to fetch biological datasets from external databases (SRA, GEO) and deposit them directly into a Bio-OS workspace by executing predefined WDL workflows. 
+This procedure outlines how to fetch biological datasets from external databases (SRA, GEO) and deposit them directly into a Bio-OS workspace by executing predefined WDL workflows.
 
 **CRITICAL RULE**: ALL downloading must happen on the Bio-OS cloud platform via WDL tasks. Do not attempt to use local bash commands (like `wget` or `fasterq-dump`) on the local agent machine.
 
@@ -31,7 +35,7 @@ When invoked to download data, follow these steps strictly:
 *   **GEO** data: Use `scripts/download_gse_data.wdl`.
 
 ### 4. Execution Requirement
-You do NOT generate `inputs.json`, `import_workflow`, or `submit_workflow` independently. 
-Instead, state in the conversation that you have identified the target WDL path and the required accession IDs. 
+You do NOT generate `inputs.json`, `import_workflow`, or `submit_workflow` independently.
+Instead, state in the conversation that you have identified the target WDL path and the required accession IDs.
 
 Then, explicitly state that the **`bioos_platform_operator`** skill is required to configure the `inputs.json` (via batch array) and execute the deployment. This explicit statement ensures the execution instructions are correctly loaded into the context window.

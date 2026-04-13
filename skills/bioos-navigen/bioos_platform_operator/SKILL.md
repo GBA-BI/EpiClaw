@@ -5,10 +5,17 @@ description: Submit and monitor WDL workflows (including inputs.json generation)
 
 # Bio-OS Platform Operator
 
+## 0. Runtime (OpenClaw vs Cursor)
+
+Bio-OS 能力由 **pybioos** 的 `bioos` CLI 提供。实现方式二选一：
+
+- **OpenClaw 且已启用 `bioos-claw-plugin`**：可直接使用下文中的**插件工具名**（如 `import_workflow`）。
+- **Cursor 或未加载该插件**：**没有**这些工具；你必须用**终端**执行 `bioos …`，命令与 `--output json` 规则见同目录 [`CURSOR_RUNTIME.md`](../CURSOR_RUNTIME.md)。下列步骤中的「调用 `xxx`」在 Cursor 中等价为「在终端运行表中对应的 `bioos` 命令」。
+
 ## 1. Operating Principle
 This procedure defines how to manage execution on the Bio-OS platform, including the deployment and monitoring of WDL workflows and Interactive Environments.
 
-In this environment, Bio-OS actions should be executed through registered OpenClaw plugin tools backed by the `pybioos` CLI. Do not replace these tools with direct shell-based Bio-OS command execution unless the surrounding system explicitly requires it.
+Follow the runtime rules in **Section 0**: use plugin tools when available, otherwise use the equivalent `bioos` CLI commands from `CURSOR_RUNTIME.md`.
 
 ## 1. WDL Workflows Submission
 
@@ -30,7 +37,7 @@ Construct the `inputs.json` for the workflow.
 ### Step 3: Execution and Monitoring
 1.  **Submit**: Call `submit_workflow` using the prepared `inputs.json` file path. (**CRITICAL**: set `monitor: false` to avoid blocking the agent during execution).
 2.  **Poll**: Call `check_workflow_run_status` periodically until `Succeeded` or `Failed`.
-3.  **Debug**: On failure, retrieve and summarize `get_workflow_logs`.
+3.  **Debug**: On failure, retrieve and summarize `get_submission_logs` (plugin name; CLI: `bioos submission logs` — see `CURSOR_RUNTIME.md`).
 4.  **Parse Outputs (CRITICAL)**: On `Succeeded`, use the bundled script `scripts/parse_workflow_outputs.py` to extract the S3 outputs into a CSV table.
     *   Save the full text output of `check_workflow_run_status` into a temporary file (e.g., `/tmp/plugin_output.txt`).
     *   Run: `python scripts/parse_workflow_outputs.py -i /tmp/plugin_output.txt -o <results.csv>`

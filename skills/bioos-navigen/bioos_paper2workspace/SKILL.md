@@ -5,6 +5,10 @@ description: Parse and orchestrate the reproduction of a computational biology p
 
 # Bio-OS Paper2Workspace
 
+## 0. Runtime (Cursor)
+
+涉及 Bio-OS 上传/执行时：无 OpenClaw 插件则用终端 `bioos …`。工具名与命令对照见 [`CURSOR_RUNTIME.md`](../CURSOR_RUNTIME.md)。
+
 ## 1. Operating Principle
 This procedure details the end-to-end Standard Operating Procedure (SOP) for converting a scientific publication into an executable environment on the Bio-OS cloud.
 
@@ -297,8 +301,8 @@ You must follow these stages sequentially. Do not proceed to the next stage unti
 
 **Goal:** Create the executable artifacts (Dockerfiles & WDL) using specialized skills.
 
-1. **Generate Pipeline**: Explicitly declare that the **`bioos_pipeline_developer`** skill is required to process the environments and logical steps from the Card's `wdl_workflow` and `ies_application` objects into a single WDL file and its Docker containers. This loads the pipeline generation SOP into your context. Follow those instructions. 
-   * **CRITICAL DEVELOPMENT DIRECTIVES**: 
+1. **Generate Pipeline**: Explicitly declare that the **`bioos_pipeline_developer`** skill is required to process the environments and logical steps from the Card's `wdl_workflow` and `ies_application` objects into a single WDL file and its Docker containers. This loads the pipeline generation SOP into your context. Follow those instructions.
+   * **CRITICAL DEVELOPMENT DIRECTIVES**:
      1. Ensure that the paper's GitHub repository is explicitly `git clone`d inside the generated Dockerfiles for all analysis environments.
      2. Process `wdl_workflow.tasks` to generate a unified WDL script and its required constituent task Docker images.
      3. Process `ies_application` strictly to build a single interactive container environment.
@@ -322,6 +326,5 @@ You must follow these stages sequentially. Do not proceed to the next stage unti
 **Goal:** Summarize the entire reproduction process and publish it to the Bio-OS workspace.
 
 1. **Draft Dashboard**: Create a comprehensive markdown summary of the entire Paper2Workspace journey, including the paper metadata, the analytical procedures, and the final execution outputs. Save it locally as `__dashboard__.md`.
-2. **Upload Dashboard**: Use the registered OpenClaw plugin tool `upload_dashboard_file` to upload `__dashboard__.md` to the target Bio-OS workspace. This serves as the workspace description and the official record of the reproduction work.
+2. **Upload Dashboard**: Use **`upload_dashboard_file`** (OpenClaw plugin) **or** `bioos workspace dashboard-upload --workspace-name … --local-file-path … --output json` (Cursor terminal) to upload `__dashboard__.md` to the target Bio-OS workspace. This serves as the workspace description and the official record of the reproduction work.
 3. **Conclude**: Inform the user that the Paper2Workspace reproduction process and execution are complete, and present the final JSON card.
-

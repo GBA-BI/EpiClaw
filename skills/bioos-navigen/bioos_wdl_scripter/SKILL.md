@@ -5,6 +5,11 @@ description: Generate, validate, and format WDL workflows that run on Bio-OS pla
 
 # Bio-OS WDL Scripter
 
+## 0. Runtime (OpenClaw vs Cursor)
+
+- **OpenClaw + `bioos-claw-plugin`**：可使用插件工具 `validate_wdl`。
+- **Cursor / 无插件**：在终端执行 `bioos workflow validate --wdl-path <绝对路径> --output json`。完整对照见 [`CURSOR_RUNTIME.md`](../CURSOR_RUNTIME.md)。
+
 ## 1. Operating Principle
 This skill defines the procedures for generating error-free, platform-compliant WDL 1.0 workflows from logical analysis steps.
 
@@ -61,9 +66,9 @@ Each `task` you generate MUST adhere to the following rules:
 - It MUST be included at the bottom of the same `.wdl` file as the tasks.
 
 ### Step 2: Validate the WDL syntax
-Once the file is generated, you MUST run the registered OpenClaw plugin tool `validate_wdl` on the absolute path of your generated file.
+Once the file is generated, you MUST validate it using **`validate_wdl`** (OpenClaw plugin) **or** the equivalent terminal command `bioos workflow validate --wdl-path <ABS_PATH> --output json` (Cursor; see **Section 0**).
 - **Success**: If validation passes, proceed to Step 3.
-- **Failure**: If validation returns syntax errors, you MUST read the error messages, update the local WDL file to fix the bugs, and run `validate_wdl` again until it passes.
+- **Failure**: If validation returns syntax errors, you MUST read the error messages, update the local WDL file to fix the bugs, and repeat validation until it passes.
 
 ### Step 3: Final Output
-Once `validate_wdl` succeeds, actively present the validated `.wdl` file (or its absolute file path) to the user or clearly state it is ready for subsequent steps in the pipeline development process.
+Once validation succeeds, actively present the validated `.wdl` file (or its absolute file path) to the user or clearly state it is ready for subsequent steps in the pipeline development process.
